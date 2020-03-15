@@ -4,6 +4,7 @@ import styled from 'styled-components/native';
 
 import { FlatList } from 'react-native';
 
+import ErrorMessage from './ErrorMessage';
 import drawer from '../assets/drawer.png';
 
 const Item = styled.View`
@@ -45,8 +46,10 @@ const Image = styled.Image`
 
 
 function List({
-  data
+  data, error, errorMessage
 }) {
+  if (error) return <ErrorMessage message={errorMessage} />
+
   return (
     <FlatList
       contentContainerStyle={{ paddingVertical: 18 }}
@@ -70,8 +73,12 @@ export default List;
 
 List.propTypes = {
   data: PropTypes.array,
+  error: PropTypes.bool,
+  errorMessage: PropTypes.string,
 };
 
 List.defaultProps = {
   data: [],
+  error: false,
+  errorMessage: null,
 };

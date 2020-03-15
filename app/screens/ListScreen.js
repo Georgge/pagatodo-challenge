@@ -25,7 +25,11 @@ function ListScreen({
         The Challenge
       </Header>
       <ListContainer loading={fetching} message={message} >
-        <List data={banks} />
+        <List
+          data={banks}
+          error={status === 'error'}
+          errorMessage={ status === 'error' && message}
+        />
       </ListContainer>
     </View>
   );

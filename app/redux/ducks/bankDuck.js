@@ -1,3 +1,4 @@
+import { AsyncStorage } from 'react-native'; // * For futere from community package
 import { getBanksList } from '../../services/bankServices';
 
 // INITIAL STATE
@@ -36,14 +37,26 @@ function populateBanksAction(payload) {
 
 
 // THUNKS
-export const populateBanks = () => dispatch => {
+export const populateBanks = () => async dispatch => {
   dispatch(fetchingAction());
+  
+  const localData = await AsyncStorage.getItem('banks');
+  
+  if (localData) {
+    dispatch(populateBanksAction(JSON.parse(localData)));
+    dispatch(resetStateAction());
+    return localData;
+  }
+
+  // Requesting only if local data doesn't exist
   return getBanksList()
     .then(data => {
+      if (data && data[0]) AsyncStorage.setItem('banks', JSON.stringify(data));
       dispatch(populateBanksAction(data));
       dispatch(resetStateAction());
+      return data;
     })
-    .catch(error => console.log(error));
+    .catch(error => dispatch(fetchingErrorAction(error)));
 }
 
 
@@ -54,7 +67,12 @@ export default function reducer(state = bankState, action) {
       return { ...state, fetching: true, message: 'Recuperando lista' }
 
     case FETCHING_ERROR:
-      return { ...state, status: 'error', message: 'Ups! Lamentamos las molestias. Por favor, intenta mas tarde' };
+      return {
+        ...state,
+        status: 'error',
+        message: 'Ups! Lamentamos las molestias. Por favor, intenta mas tarde',
+        fetching: false,
+      };
 
     case RESET_STATE:
       return { ...state, fetching: false, status: null, message: '' };
