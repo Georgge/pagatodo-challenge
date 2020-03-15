@@ -51,8 +51,8 @@ export const populateBanks = () => async dispatch => {
   // Requesting only if local data doesn't exist
   return getBanksList()
     .then(data => {
+      if (!Array.isArray(data)) data = []; // to ensure that it will always be an array
       if (data && Array.isArray(data)) AsyncStorage.setItem('banks', JSON.stringify(data));
-      if (!Array.isArray(data)) data = [];
 
       dispatch(populateBanksAction(data));
       dispatch(resetStateAction());
