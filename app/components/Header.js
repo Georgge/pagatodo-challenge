@@ -3,16 +3,16 @@ import React from 'react';
 import styled from 'styled-components/native';
 
 const Container = styled.View`
-  background-color: #005c42;
-  padding-vertical: 9px;
+  backgroundColor: #005c42;
+  paddingVertical: 9px;
 `
 
 const Text = styled.Text`
   color: white;
-  text-align: center;
-  font-size: 20px;
-  text-transform: uppercase;
-  font-weight: bold;
+  textAlign: center;
+  fontSize: 20px;
+  textTransform: uppercase;
+  fontWeight: bold;
 `
 
 export default function Header({

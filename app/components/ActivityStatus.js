@@ -5,9 +5,9 @@ import { View, ActivityIndicator } from 'react-native';
 
 
 const Text = styled.Text`
-  text-align: center;
-  padding-vertical: 9px;
-  font-size: 16px;
+  textAlign: center;
+  paddingVertical: 9px;
+  fontSize: 16px;
   color: #005c42;
 `
 

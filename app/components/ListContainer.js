@@ -5,10 +5,10 @@ import ActivityStatus from './ActivityStatus';
 
 const Wrapper = styled.View`
   flex: 1;
-  background-color: white;
-  border-top-left-radius: 18px;
-  border-top-right-radius: 18px;
-  margin-top: 18px;
+  backgroundColor: white;
+  borderTopLeftRadius: 18px;
+  borderTopRightRadius: 18px;
+  marginTop: 18px;
 `
 
 function ListContainer({

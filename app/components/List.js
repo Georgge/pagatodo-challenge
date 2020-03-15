@@ -57,11 +57,13 @@ function List({
       keyExtractor={(item, index) => `bank-${index}`}
       renderItem={({ item }) =>
         <Item>
-          <Image source={{ uri: item.url }} />
+          <Image source={item.url ? { uri: item.url } : drawer} resizeMode="cover" />
           <Details>
-            <StrongDetail>{ item.bankName }</StrongDetail>
-            <Detail>{ item.description }</Detail>
-            <Detail>{ `Con una antiguedad de ${item.age} años` }</Detail>
+            <StrongDetail>{ item.bankName || 'Nombre no disponible' }</StrongDetail>
+            <Detail>{ item.description || 'Descripción no disponible' }</Detail>
+            {
+              item.age && <Detail>{ `Con una antiguedad de ${item.age} años` }</Detail>
+            }
           </Details>
         </Item>
       }
