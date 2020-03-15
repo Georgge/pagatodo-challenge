@@ -15,12 +15,19 @@ const Text = styled.Text`
   fontWeight: bold;
 `
 
+const SmallText = styled.Text`
+  fontSize: 14px;
+  color: white;
+  textAlign: center;
+`
+
 export default function Header({
   children
 }) {
   return (
     <Container>
       <Text textAlignVertical>{ children }</Text>
+      <SmallText>By: Jorge García</SmallText>
     </Container>
   );
 }
