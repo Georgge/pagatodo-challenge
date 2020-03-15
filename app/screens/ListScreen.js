@@ -7,6 +7,7 @@ import { populateBanks } from '../redux/ducks/bankDuck';
 
 import Header from '../components/Header';
 import ListContainer from '../components/ListContainer';
+import List from '../components/List';
 
 
 function ListScreen({
@@ -24,7 +25,7 @@ function ListScreen({
         The Challenge
       </Header>
       <ListContainer loading={fetching} message={message} >
-
+        <List data={banks} />
       </ListContainer>
     </View>
   );
