@@ -9,17 +9,24 @@ const Wrapper = styled.View`
   borderTopLeftRadius: 18px;
   borderTopRightRadius: 18px;
   marginTop: 18px;
+  borderWidth: 1px;
+  borderColor: #2c3e50;
+  shadowColor: #2c3e50;
+  elevation: 9;
+  shadowOpacity: 0.8;
+  shadowRadius: 9px;
+  paddingVertical: ${({ verticalPadding }) => verticalPadding ? '9px' : '0px'}
 `
 
-function ListContainer({
-  children, loading
+function Container({
+  children, loading, verticalPadding
 }) {
   return (
-    <Wrapper>
+    <Wrapper verticalPadding={verticalPadding}>
       { loading &&  <ActivityStatus message="Solicitando lista" /> }
       { children }
     </Wrapper>
   );
 }
 
-export default ListContainer;
+export default Container;

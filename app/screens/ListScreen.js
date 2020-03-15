@@ -6,7 +6,7 @@ import { View, Text } from 'react-native';
 import { populateBanks } from '../redux/ducks/bankDuck';
 
 import Header from '../components/Header';
-import ListContainer from '../components/ListContainer';
+import Container from '../components/Container';
 import List from '../components/List';
 
 
@@ -24,13 +24,13 @@ function ListScreen({
       <Header>
         The Challenge
       </Header>
-      <ListContainer loading={fetching} message={message} >
+      <Container loading={fetching} message={message} >
         <List
           data={banks}
           error={status === 'error'}
           errorMessage={ status === 'error' && message}
         />
-      </ListContainer>
+      </Container>
     </View>
   );
 }

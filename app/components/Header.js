@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import styled from 'styled-components/native';
 
@@ -22,12 +23,24 @@ const SmallText = styled.Text`
 `
 
 export default function Header({
-  children
+  children, subtitle
 }) {
   return (
     <Container>
       <Text textAlignVertical>{ children }</Text>
-      <SmallText>By: Jorge García</SmallText>
+      <SmallText>
+        { subtitle }
+      </SmallText>
     </Container>
   );
+}
+
+Header.propTypes = {
+  children: PropTypes.node,
+  subtitle: PropTypes.string,
+};
+
+Header.defaultProps = {
+  children: null,
+  subtitle: 'By: Jorge García',
 }

@@ -1,23 +1,37 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 import { Provider } from 'react-redux';
-
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar
-} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import store from './redux/store';
-import ListScreen from './screens/ListScreen';
+import InitialScreen from './screens/InitialScreen';
 
 
 function App() {
+  const Stack = createStackNavigator();
   return (
     <Provider store={store}>
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#005c42' }}>
-        <StatusBar backgroundColor="#005c42" />
-        <ListScreen />
-      </SafeAreaView>
+      <NavigationContainer>
+        <Stack.Navigator
+          headerMode="screen"
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: '#005c42',
+              borderBottomColor: '#005c42',
+              shadowRadius: 0,
+              shadowOffset: {
+                height: 0,
+              }
+            }
+          }}>
+          <Stack.Screen
+            name="Home"
+            component={InitialScreen}
+            options={{ title: 'Challenge' }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     </Provider>
   );
 };
