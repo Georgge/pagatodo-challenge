@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
 
 import { FlatList } from 'react-native';
@@ -16,7 +17,6 @@ const Item = styled.View`
   borderWidth: 1px;
   borderColor: #ecf0f1;
   shadowColor: #ecf0f1;
-  shadowOffset: { width: 0, height: 2 };
   elevation: 9;
   shadowOpacity: 0.8;
   shadowRadius: 9px;
@@ -49,6 +49,7 @@ function List({
 }) {
   return (
     <FlatList
+      contentContainerStyle={{ paddingVertical: 18 }}
       data={data}
       keyExtractor={(item, index) => `bank-${index}`}
       renderItem={({ item }) =>
@@ -66,3 +67,11 @@ function List({
 }
 
 export default List;
+
+List.propTypes = {
+  data: PropTypes.array,
+};
+
+List.defaultProps = {
+  data: [],
+};

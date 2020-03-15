@@ -8,7 +8,6 @@ const Wrapper = styled.View`
   background-color: white;
   border-top-left-radius: 18px;
   border-top-right-radius: 18px;
-  padding-vertical: 9px;
   margin-top: 18px;
 `
 
