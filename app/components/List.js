@@ -46,9 +46,10 @@ const Image = styled.Image`
 
 
 function List({
-  data, error, errorMessage
+  data = [], error, errorMessage
 }) {
   if (error) return <ErrorMessage message={errorMessage} />
+  if (data.length === 0) return <ErrorMessage empty message="No hay datos disponibles" />
 
   return (
     <FlatList

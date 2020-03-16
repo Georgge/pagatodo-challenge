@@ -4,6 +4,7 @@ import styled from 'styled-components/native';
 import { Image } from 'react-native';
 
 import server from '../assets/server.png';
+import emptyImg from '../assets/empty.png';
 
 
 const Wrapper = styled.View`
@@ -22,11 +23,11 @@ const Text = styled.Text`
 `;
 
 function ErrorMessage({
-  message
+  message, empty
 }) {
   return (
     <Wrapper>
-      <Image source={server} />
+      <Image source={empty ? emptyImg : server} />
       <Text>
         { message }
       </Text>
