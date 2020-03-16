@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components/native';
 
-import { localVerification } from '../redux/ducks/bankDuck';
+import { localVerification, clearStorage } from '../redux/ducks/bankDuck';
 
 import Wrapper from '../components/Wrapper';
 import Container from '../components/Container';
@@ -20,6 +20,7 @@ const Image = styled.Image`
 function InitialScreen({
   navigation, localData,
   localVerification,
+  clearStorage,
 }) {
   const { navigate } = navigation;
 
@@ -34,7 +35,10 @@ function InitialScreen({
       <Button onPress={() => navigate('List')}>
         { `${localData ? 'Ver' : 'Obtener'} Lista` }
       </Button>
-      <Button disabled>
+      <Button
+        disabled={!localData}
+        danger
+        onPress={() => clearStorage()}>
         Limpiar Storage
       </Button>
      </Container>
@@ -51,4 +55,5 @@ function mapStateToProps({ bank }) {
 export default connect(
   mapStateToProps, {
     localVerification,
+    clearStorage,
   })(InitialScreen);

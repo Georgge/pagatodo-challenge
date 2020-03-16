@@ -4,7 +4,7 @@ import  styled from 'styled-components/native';
 const Touchable = styled.TouchableOpacity`
   paddingVertical: 9px;
   paddingHorizontal: 18px;
-  backgroundColor: ${({ disabled }) => disabled ? '#ececec' : '#005c42'};
+  backgroundColor: ${({ disabled, danger }) => disabled ? '#ececec' : danger ? '#96281b' : '#005c42'};
   minHeight: 80px;
   marginVertical: 9px;
   marginHorizontal: 18px;
@@ -28,10 +28,14 @@ const Text = styled.Text`
 `;
 
 function Button({
-  children, disabled, onPress
+  children, disabled, danger,
+  onPress
 }) {
   return (
-    <Touchable disabled={disabled} onPress={onPress ? () => onPress() : null}>
+    <Touchable
+      disabled={disabled}
+      danger={danger}
+      onPress={onPress ? () => onPress() : null}>
       <Text disabled={disabled}>
         { children }
       </Text>

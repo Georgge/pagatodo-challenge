@@ -34,7 +34,6 @@ function ListScreen({
 }
 
 function mapStateToProps({ bank }) {
-  console.log(bank.fetching);
   return {
     banks: bank.array,
     fetching: bank.fetching,

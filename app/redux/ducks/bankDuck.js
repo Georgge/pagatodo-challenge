@@ -18,6 +18,7 @@ const FETCHING_ERROR = `${PREFIX}FETCHING_ERROR`;
 const RESET_STATE = `${PREFIX}RESET_STATE`;
 const POPULATE_BANKS = `${PREFIX}POPULATE_BANKS`;
 const LOCAL_VERIFICATION = `${PREFIX}LOCAL_VALIDATION`;
+const CLEAR_STORAGE = `${PREFIX}CLEAR_STORAGE`;
 
 
 // ACTIONS CREATORS
@@ -41,6 +42,10 @@ function localVerificationAction(payload) {
   return { type: LOCAL_VERIFICATION, payload };
 }
 
+function clearStorageAction() {
+  return { type: CLEAR_STORAGE };
+}
+
 
 // THUNKS
 export const populateBanks = () => async dispatch => {
@@ -60,7 +65,7 @@ export const populateBanks = () => async dispatch => {
       if (!Array.isArray(data)) data = []; // to ensure that it will always be an array
       if (data && Array.isArray(data)) AsyncStorage.setItem('banks', JSON.stringify(data));
 
-      dispatch(populateBanksAction(data));
+      dispatch(populateBanksAction(data, true));
       dispatch(resetStateAction());
       return data;
     })
@@ -71,6 +76,11 @@ export const populateBanks = () => async dispatch => {
 export const localVerification = () => async dispatch => {
   const localData = AsyncStorage.getItem('banks');
   dispatch(localVerificationAction(localData ? true : false));
+}
+
+export const clearStorage = () => dispatch => {
+  AsyncStorage.clear();
+  dispatch(clearStorageAction());
 }
 
 
@@ -96,6 +106,9 @@ export default function reducer(state = bankState, action) {
 
     case LOCAL_VERIFICATION:
       return { ...state, local: action.payload };
+
+    case CLEAR_STORAGE:
+      return { ...state, array: [], local: false };
   
     default:
       return state;
