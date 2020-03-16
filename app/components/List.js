@@ -55,18 +55,22 @@ function List({
       contentContainerStyle={{ paddingVertical: 18 }}
       data={data}
       keyExtractor={(item, index) => `bank-${index}`}
-      renderItem={({ item }) =>
-        <Item>
-          <Image source={item.url ? { uri: item.url } : drawer} resizeMode="cover" />
-          <Details>
-            <StrongDetail>{ item.bankName || 'Nombre no disponible' }</StrongDetail>
-            <Detail>{ item.description || 'Descripción no disponible' }</Detail>
-            {
-              item.age && <Detail>{ `Con una antiguedad de ${item.age} años` }</Detail>
-            }
-          </Details>
-        </Item>
-      }
+      renderItem={({ item }) => {
+        if (item && (typeof item !== 'object' || Array.isArray(item))) return null;
+
+        return (
+          <Item>
+            <Image source={item.url ? { uri: item.url } : drawer} resizeMode="cover" />
+            <Details>
+              <StrongDetail>{ item.bankName || 'Nombre no disponible' }</StrongDetail>
+              <Detail>{ item.description || 'Descripción no disponible' }</Detail>
+              {
+                item.age && <Detail>{ `Con una antiguedad de ${item.age} años` }</Detail>
+              }
+            </Details>
+          </Item>
+        )
+      }}
     />
   );
 }
