@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components/native';
+
+import { localVerification } from '../redux/ducks/bankDuck';
 
 import Wrapper from '../components/Wrapper';
 import Container from '../components/Container';
@@ -15,16 +18,21 @@ const Image = styled.Image`
 `
 
 function InitialScreen({
-  navigation
+  navigation, localData,
+  localVerification,
 }) {
   const { navigate } = navigation;
+
+  useEffect(() => {
+    localVerification();
+  }, []);
 
   return (
    <Wrapper title="Paga Todo" subtitle="Prueba">
      <Container verticalPadding>
       <Image source={logo} resizeMode="contain" />
       <Button onPress={() => navigate('List')}>
-        Obtener Lista
+        { `${localData ? 'Ver' : 'Obtener'} Lista` }
       </Button>
       <Button disabled>
         Limpiar Storage
@@ -34,4 +42,13 @@ function InitialScreen({
   );
 }
 
-export default InitialScreen;
+function mapStateToProps({ bank }) {
+  return {
+    localData: bank.local
+  };
+}
+
+export default connect(
+  mapStateToProps, {
+    localVerification,
+  })(InitialScreen);

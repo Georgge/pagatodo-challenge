@@ -7,6 +7,7 @@ const bankState = {
   fetching: false,
   status: null,
   message: '',
+  local: false,
 }
 
 
@@ -16,6 +17,7 @@ const FETCHING = `${PREFIX}FETCHING`;
 const FETCHING_ERROR = `${PREFIX}FETCHING_ERROR`;
 const RESET_STATE = `${PREFIX}RESET_STATE`;
 const POPULATE_BANKS = `${PREFIX}POPULATE_BANKS`;
+const LOCAL_VERIFICATION = `${PREFIX}LOCAL_VALIDATION`;
 
 
 // ACTIONS CREATORS
@@ -31,8 +33,12 @@ function resetStateAction() {
   return { type: RESET_STATE };
 }
 
-function populateBanksAction(payload) {
-  return { type: POPULATE_BANKS, payload }
+function populateBanksAction(payload, local = false) {
+  return { type: POPULATE_BANKS, payload, local }
+}
+
+function localVerificationAction(payload) {
+  return { type: LOCAL_VERIFICATION, payload };
 }
 
 
@@ -43,7 +49,7 @@ export const populateBanks = () => async dispatch => {
   const localData = await AsyncStorage.getItem('banks');
   
   if (localData) {
-    dispatch(populateBanksAction(JSON.parse(localData)));
+    dispatch(populateBanksAction(JSON.parse(localData), true));
     dispatch(resetStateAction());
     return localData;
   }
@@ -59,6 +65,12 @@ export const populateBanks = () => async dispatch => {
       return data;
     })
     .catch(error => dispatch(fetchingErrorAction(error)));
+}
+
+// These are not really thunks. But, for convection we put it here
+export const localVerification = () => async dispatch => {
+  const localData = AsyncStorage.getItem('banks');
+  dispatch(localVerificationAction(localData ? true : false));
 }
 
 
@@ -80,7 +92,10 @@ export default function reducer(state = bankState, action) {
       return { ...state, fetching: false, status: null, message: '' };
 
     case POPULATE_BANKS:
-      return { ...state, array: action.payload };
+      return { ...state, array: action.payload, local: action.local };
+
+    case LOCAL_VERIFICATION:
+      return { ...state, local: action.payload };
   
     default:
       return state;
