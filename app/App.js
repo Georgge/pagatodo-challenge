@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import store from './redux/store';
 import InitialScreen from './screens/InitialScreen';
+import ListScreen from './screens/ListScreen';
 
 
 function App() {
@@ -23,12 +24,22 @@ function App() {
               shadowOffset: {
                 height: 0,
               }
+            },
+            headerTitleStyle: {
+              color: 'white',
+              fontWeight: 'bold',
+              textTransform: 'uppercase',
             }
           }}>
           <Stack.Screen
             name="Home"
             component={InitialScreen}
             options={{ title: 'Challenge' }}
+          />
+          <Stack.Screen
+            name="List"
+            component={ListScreen}
+            options={{ title: 'Bancos' }}        
           />
         </Stack.Navigator>
       </NavigationContainer>
